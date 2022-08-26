@@ -2,6 +2,7 @@ package org.oobootcamp.parkinglot;
 
 import org.junit.jupiter.api.Test;
 import org.oobootcamp.parkinglot.exception.InvalidTicketException;
+import org.oobootcamp.parkinglot.exception.ParkingLotFullException;
 import org.oobootcamp.parkinglot.parkingBoy.GraduateParkingBoy;
 import org.oobootcamp.parkinglot.parkingBoy.SmartParkingBoy;
 
@@ -135,6 +136,19 @@ public class ParkingManagerTest {
 
         assertEquals(ticket.getLicensePlateNumber(), car.getLicensePlateNumber());
         assertTrue(parkingLotB.hasCar(ticket));
+    }
+
+    @Test
+    public void should_get_parking_lot_full_exception_when_park_given_graduate_boy_with_full_parking_lot_and_one_full_parking_lot() {
+        ParkingLot parkingLotA = new ParkingLot(1);
+        ParkingLot parkingLotB = new ParkingLot(1);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(Collections.singletonList(parkingLotA));
+        graduateParkingBoy.park(new Car("京A12345"));
+        parkingLotB.park(new Car("京23456"));
+        ParkingManager parkingManager = new ParkingManager(Collections.singletonList(parkingLotB), Collections.singletonList(graduateParkingBoy));
+        Car car = new Car("京A34567");
+
+        assertThrows(ParkingLotFullException.class, () -> parkingManager.park(car));
     }
 
     @Test
