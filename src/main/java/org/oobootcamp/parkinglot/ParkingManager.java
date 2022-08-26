@@ -42,4 +42,8 @@ public class ParkingManager {
         }
         return null;
     }
+
+    public Car pickUp(Ticket ticket) {
+        return new Car("");
+    }
 }

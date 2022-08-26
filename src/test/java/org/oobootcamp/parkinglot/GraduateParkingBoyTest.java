@@ -12,18 +12,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class GraduateParkingBoyTest {
     @Test
-    void should_return_car_when_pick_up_car_given_park_car_by_parking_lot_and_pick_up_car_by_graduate_parking_boy() {
-        ParkingLot parkingLot = new ParkingLot(10);
-        Car car = new Car("123");
-        Ticket ticket = parkingLot.park(car);
-
-        GraduateParkingBoy smartParkingBoy = new GraduateParkingBoy(List.of(parkingLot));
-
-        Car actualCar = smartParkingBoy.pickUp(ticket);
-        assertEquals(car, actualCar);
-    }
-
-    @Test
     void should_park_in_A_and_receive_a_ticket_when_park_given_parking_lot_A_and_B_have_available_spots() {
         ParkingLot parkingLotA = new ParkingLot(3);
         ParkingLot parkingLotB = new ParkingLot(5);
@@ -61,6 +49,18 @@ public class GraduateParkingBoyTest {
         Car car = new Car("京A24567");
 
         assertThrows(ParkingLotFullException.class, () -> gpb.park(car));
+    }
+
+    @Test
+    void should_return_car_when_pick_up_car_given_park_car_by_parking_lot_and_pick_up_car_by_graduate_parking_boy() {
+        ParkingLot parkingLot = new ParkingLot(10);
+        Car car = new Car("123");
+        Ticket ticket = parkingLot.park(car);
+
+        GraduateParkingBoy smartParkingBoy = new GraduateParkingBoy(List.of(parkingLot));
+
+        Car actualCar = smartParkingBoy.pickUp(ticket);
+        assertEquals(car, actualCar);
     }
 
     @Test
